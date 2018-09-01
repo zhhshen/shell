@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>简单实现一个textarea自适应高度功能</title>
+  <script src="https://cdn.bootcss.com/vue/2.5.16/vue.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    #app {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background: #fff;
+    }
+    .wrap {
+      margin: 0 auto;
+      width: 100%;
+      padding: 24px;
+      box-sizing: border-box;
+    }
+    textarea {
+      width: 100%;
+      margin-top: 24px;
+      height: auto;
+      outline: none;
+      border: 1px solid #f1f1f1;
+      -webkit-appearance: none;
+      appearance: none;
+      overflow: hidden;
+      resize: none;
+      line-height: 20px;
+      font-size: 16px;
+      padding:  10px;
+      box-sizing: border-box;
+    }
+    @media screen and (min-width: 641px) {
+      .wrap {
+        width: 640px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="wrap">
+      <h3>请输入文本:</h3>
+      <textarea 
+        ref="textareaId"
+        :value="text"
+        placeholder="请输入文本"
+        @focus="onFocus"
+        @blur="onBlur"
+        @input="onTextareaInput"
+      ></textarea>
+      <div class="meta"></div>
+    </div>
+  </div>
+  <script>
+    const vm = new Vue({
+      el: '#app',
+      data: {
+        text: `2018暑期悄然接近尾声，电视剧战场却依旧鏖战正酣！纵观整个暑期档，
+              电视剧市场可谓从几年前的“高热期”走到了“平缓期”。2017年暑期网剧上新量为96部，
+              比2016年增加13部，而网络播放量达却几乎翻倍增长，高达1405亿。（以上数据来源Vlinkage）。
+              2018暑期悄然接近尾声，电视剧战场却依旧鏖战正酣！
+              纵观整个暑期档，电视剧市场可谓从几年前的“高热期”走到了“平缓期”。
+              2017年暑期网剧上新量为96部，比2016年增加13部，而网络播放量达却几乎翻倍增长，
+              高达1405亿。（以上数据来源Vlinkage）。`,
+      },
+      mounted() {
+        const textarea = this.$refs.textareaId
+        const style = this.getStyle(textarea)
+        this.resizeHeight(textarea, style())
+      },
+      methods: {
+        onFocus() {
+          this.$refs.textareaId && this.$refs.textareaId.focus()
+        },
+        onBlur() {
+          this.$refs.textareaId && this.$refs.textareaId.blur()
+        },
+        onTextareaInput(e) {
+          const { value } = e.target
+          if (!value) return
+          this.text = value
+          const textarea = this.$refs.textareaId
+          const style = this.getStyle(textarea)
+          if (this.timer) {
+            clearTimeout(this.timer)
+          }
+          this.timer = setTimeout(() => {
+            this.resizeHeight(textarea, style())
+            clearTimeout(this.timer)
+          }, 300)
+        },
+        resizeHeight(elem, style) {
+          elem.removeAttribute('rows')
+          elem.style.height = 'auto'
+          const { scrollHeight } = elem
+          const { lineHeight, paddingTop, paddingBottom } = style
+          let rowsNum = Math.round((scrollHeight - paddingTop - paddingBottom) / lineHeight)
+          elem.setAttribute('rows', rowsNum)
+        },
+        getStyle(elem) {
+          let style = null
+          return () => {
+            if (!style) {
+              const { lineHeight, paddingTop, paddingBottom } = window.getComputedStyle(elem)
+              style = {
+                lineHeight: lineHeight.replace('px', ''),
+                paddingTop: paddingTop.replace('px', ''),
+                paddingBottom: paddingBottom.replace('px', ''),
+              }
+            }
+            return style
+          }
+        },
+      }
+    })
+  </script>
+</body>
+</html>
