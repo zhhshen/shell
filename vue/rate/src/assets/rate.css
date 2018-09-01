@@ -1,0 +1,18 @@
+.rate-wrap {
+  display: inline-block;
+}
+.rate-wrap ul {
+  display: flex;
+  list-style: none;
+}
+.rate-wrap ul li {
+  margin-right: 12px;
+  cursor: pointer;
+  list-style: none;
+}
+.rate-wrap ul li i {
+  font-size: 18px;
+}
+.rate-wrap ul li i.icon-star-bg {
+  color: #FFB843;
+}
