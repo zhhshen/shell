@@ -92,11 +92,11 @@
           this.timer = setTimeout(() => {
             this.resizeHeight(textarea, style())
             clearTimeout(this.timer)
-          }, 16.7)
+          }, 100)
         },
         resizeHeight(elem, style) {
-          // elem.removeAttribute('rows')
-          // elem.style.height = 'auto'
+          elem.removeAttribute('rows')
+          elem.style.height = 'auto'
           const { scrollHeight } = elem
           const { lineHeight, paddingTop, paddingBottom } = style
           let rowsNum = Math.round((scrollHeight - paddingTop - paddingBottom) / lineHeight)
