@@ -25,9 +25,16 @@
       padding: 24px;
       box-sizing: border-box;
     }
+    ul, li {
+      list-style: none;
+    }
+    h3 {
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+    /* demo1 */
     textarea {
       width: 100%;
-      margin-top: 24px;
       height: auto;
       outline: none;
       border: 1px solid #f1f1f1;
@@ -40,6 +47,28 @@
       padding:  10px;
       box-sizing: border-box;
     }
+    /* demo2 */
+    .similar-textarea {
+      outline: none;
+      padding: 10px;
+      line-height: 21px;
+      font-size: 13px;
+      color: #101D37;
+      overflow: hidden;
+      word-wrap: break-word;
+      border: 1px solid #f1f1f1;
+      -webkit-user-select: text !important;
+      user-select: text !important;
+      -webkit-user-modify: read-write-plaintext-only;
+    }
+    .similar-textarea:empty:before {
+      content: attr(data-placeholder);
+      color: #bbb;
+    }
+    .similar-textarea:focus:not(.similar-textarea:empty):before {
+      content: none;
+    }
+
     @media screen and (min-width: 641px) {
       .wrap {
         width: 640px;
@@ -50,21 +79,37 @@
 <body>
   <div id="app">
     <div class="wrap">
-      <h3>请输入文本:</h3>
-      <textarea 
-        ref="textareaId"
-        :value="text"
-        placeholder="请输入文本"
-        @focus="onFocus"
-        @blur="onBlur"
-        @input="onTextareaInput"
-      ></textarea>
-      <div class="meta"></div>
+      <ul>
+        <li id="demo1">
+          <h3>1 直接操作textarea:</h3>
+          <textarea 
+            ref="textareaId"
+            :value="text"
+            placeholder="请输入文本"
+            @focus="onFocus"
+            @blur="onBlur"
+            @input="onTextareaInput"
+          ></textarea>
+        </li>
+        <li id="demo2">
+            <h3>2 div添加contenteditable属性:</h3>
+            <div
+              :ref="`similarTextareaId`"
+              class="similar-textarea"
+              contenteditable="true"
+              data-placeholder="请输入文本"
+              @focus="onSimilarInputFocus()"
+              @blur="onSimilarInputBlur($event)"
+              @input="onSimilarInputComment($event)"
+            ></div>
+        </li>
+      </ul>
     </div>
   </div>
   <script>
-    const vm = new Vue({
-      el: '#app',
+    // demo1
+    const vm1 = new Vue({
+      el: '#demo1',
       data: {
         text: `如今随波逐流容易，独善其身却难，克己奉公会变成笑话，不徇私情却被千夫所指，做人做事要无愧于心。不论何等境地，一定要坚持本心。`,
       },
@@ -92,15 +137,20 @@
           this.timer = setTimeout(() => {
             this.resizeHeight(textarea, style())
             clearTimeout(this.timer)
-          }, 100)
+          }, 16.7)
         },
         resizeHeight(elem, style) {
-          elem.removeAttribute('rows')
+          // elem.removeAttribute('rows')
+          // elem.style.height = 'auto'
+          // const { scrollHeight } = elem
+          // const { lineHeight, paddingTop, paddingBottom } = style
+          // let rowsNum = Math.round((scrollHeight - paddingTop - paddingBottom) / lineHeight)
+          // elem.setAttribute('rows', rowsNum)
+          // 或者
+          elem.scrollTop = 0
           elem.style.height = 'auto'
           const { scrollHeight } = elem
-          const { lineHeight, paddingTop, paddingBottom } = style
-          let rowsNum = Math.round((scrollHeight - paddingTop - paddingBottom) / lineHeight)
-          elem.setAttribute('rows', rowsNum)
+          elem.style.height = `${scrollHeight}px`
         },
         getStyle(elem) {
           let style = null
@@ -116,7 +166,51 @@
             return style
           }
         },
+        
       }
+    })
+    // demo2
+    const vm2 = new Vue({
+      el: '#demo2',
+      data: {
+        text: '',
+      },
+      methods: {
+        onSimilarInputFocus() {
+          this.$refs.similarTextareaId.focus()
+        },
+        onSimilarInputBlur(e) {
+          const { innerText } = e.target
+          const value = innerText
+          if (value && value.length > 500) {
+            console.log('不能超过500个字')
+            return
+          }
+          const elem = this.$refs.similarTextareaId
+          elem.blur()
+        },
+        onSimilarInputComment(e) {
+          const elem = this.$refs[`similarTextareaId`]
+          const { innerText } = e.target
+          const value = innerText
+          if (!value) {
+            this.text = ''
+            return
+          }
+          if (value && value.length > 500) {
+            console.log('不能超过500个字')
+            return
+          }
+          this.comment = value
+          // 移动光标
+          if (window.getSelection) {
+            elem.focus()
+            const range = window.getSelection()
+            range.selectAllChildren(elem)
+            range.collapseToEnd()
+          }
+        },
+      },
     })
   </script>
 </body>
