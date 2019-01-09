@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>css3的混合模式</title>
+  <style> 
+    .main {
+      background: #666;
+    }
+    img {
+      width: 100px;
+      vertical-align: top;
+    }
+    img:hover {
+      mix-blend-mode: lighten;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <ul class="main">
+      <li><img src="./assets/images/train.png" alt=""></li>
+      <li><img src="./assets/images/train.png" alt=""></li>
+    </ul>
+  </div>
+</body>
+</html>
