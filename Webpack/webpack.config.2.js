@@ -1,12 +1,13 @@
 const path = require('path')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin")
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 module.exports = {
   mode: "development",
   entry: {
-    index: './src/index.js',
+    first: './src/first.js',
+    second: './src/second.js',
+    third: './src/third.js'
   },
   output: {
     filename: '[name].[hash].js',
@@ -30,7 +31,7 @@ module.exports = {
     historyApiFallback: {
       index: './index.html'
     },
-    port: 9000
+    port: 9002
   },
   plugins: [
     new CleanWebpackPlugin(['dist']),
@@ -53,12 +54,5 @@ module.exports = {
         }
       }
     },
-    minimizer: [
-      new UglifyJsPlugin({
-        cache: true,
-        parallel: true,
-        sourceMap: true
-      })
-    ]
   }
 };

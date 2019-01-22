@@ -1,4 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Home from './pages/home'
-ReactDOM.render(<Home />, document.getElementById('app'))
+import { BrowserRouter } from 'react-router-dom'
+import App from './pages/app'
+ReactDOM.render(
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>, document.getElementById('app'))

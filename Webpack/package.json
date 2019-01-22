@@ -5,8 +5,12 @@
   "primate": true,
   "main": "webpack.config.js",
   "scripts": {
-    "start": "webpack-dev-server --mode development --open --hot --inline",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start1": "webpack-dev-server --config webpack.config.1.js --mode development --hot --inline --history-api-fallback",
+    "start2": "webpack-dev-server --config webpack.config.2.js --mode development --hot --inline --history-api-fallback",
+    "start3": "webpack-dev-server --config webpack.config.3.js --mode development --hot --inline --history-api-fallback",
+    "start": "webpack-dev-server --config webpack.config.js --mode development --hot --inline --history-api-fallback",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "report": "webpack --profile --json > stats.json"
   },
   "keywords": [],
   "author": "",
@@ -16,17 +20,21 @@
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/preset-env": "^7.2.3",
     "@babel/preset-react": "^7.0.0",
+    "antd": "^3.12.1",
     "babel-loader": "^8.0.5",
     "clean-webpack-plugin": "^1.0.0",
     "html-webpack-plugin": "^3.2.0",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-loadable": "^5.5.0",
+    "uglifyjs-webpack-plugin": "^2.1.1",
     "webpack": "^4.28.1",
+    "webpack-bundle-analyzer": "^3.0.3",
     "webpack-cli": "^3.2.1",
     "webpack-dev-server": "^3.1.14"
   },
   "dependencies": {
-    "moment": "^2.23.0"
+    "moment": "^2.23.0",
+    "react-router-dom": "^4.3.1"
   }
 }

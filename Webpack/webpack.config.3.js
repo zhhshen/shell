@@ -1,12 +1,12 @@
 const path = require('path')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin")
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+
 module.exports = {
   mode: "development",
   entry: {
-    index: './src/index.js',
+    four: './src/four.js'
   },
   output: {
     filename: '[name].[hash].js',
@@ -30,7 +30,7 @@ module.exports = {
     historyApiFallback: {
       index: './index.html'
     },
-    port: 9000
+    port: 9003
   },
   plugins: [
     new CleanWebpackPlugin(['dist']),
@@ -43,22 +43,15 @@ module.exports = {
     new BundleAnalyzerPlugin()
   ],
   optimization: {
-    splitChunks: {
-      // chunks: 'all'
-      cacheGroups: {
-        vendor: {
-          test: /[\\/]node_modules[\\/]/,
-          name: 'vendors',
-          chunks: 'all'
-        }
-      }
-    },
-    minimizer: [
-      new UglifyJsPlugin({
-        cache: true,
-        parallel: true,
-        sourceMap: true
-      })
-    ]
+    // splitChunks: {
+    //   chunks: 'all'
+    //   cacheGroups: {
+    //     vendor: {
+    //       test: /[\\/]node_modules[\\/]/,
+    //       name: 'vendors',
+    //       chunks: 'all'
+    //     }
+    //   }
+    // }
   }
 };

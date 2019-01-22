@@ -6,7 +6,9 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 module.exports = {
   mode: "development",
   entry: {
-    index: './src/index.js',
+    first: './src/first.js',
+    second: './src/second.js',
+    third: './src/third.js'
   },
   output: {
     filename: '[name].[hash].js',
@@ -30,7 +32,7 @@ module.exports = {
     historyApiFallback: {
       index: './index.html'
     },
-    port: 9000
+    port: 9001
   },
   plugins: [
     new CleanWebpackPlugin(['dist']),
@@ -40,25 +42,26 @@ module.exports = {
       filename: "index.html"
     }),
     // bundle 分析
-    new BundleAnalyzerPlugin()
+    new BundleAnalyzerPlugin({
+      defaultSizes: 'parsed'
+    })
   ],
   optimization: {
-    splitChunks: {
-      // chunks: 'all'
-      cacheGroups: {
-        vendor: {
-          test: /[\\/]node_modules[\\/]/,
-          name: 'vendors',
-          chunks: 'all'
-        }
-      }
-    },
-    minimizer: [
-      new UglifyJsPlugin({
-        cache: true,
-        parallel: true,
-        sourceMap: true
-      })
-    ]
+    // splitChunks: {
+    //   cacheGroups: {
+    //     vendor: {
+    //       test: /[\\/]node_modules[\\/]/,
+    //       name: 'vendors',
+    //       chunks: 'all'
+    //     }
+    //   }
+    // },
+    // minimizer: [
+    //   new UglifyJsPlugin({
+    //     cache: true,
+    //     parallel: true,
+    //     sourceMap: true
+    //   })
+    // ]
   }
 };

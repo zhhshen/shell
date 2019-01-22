@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
 import moment from 'moment'
-export default class home extends Component {
+
+export default class base extends Component {
   componentDidMount() {
-    console.log('home--', moment().format('YYYY-MM-DD HH:mm:ss'))
+    console.log('help--', moment().format('YYYY-MM-DD HH:mm:ss'))
   }
   
   render() {
     return (
       <div>
-        <h2>home页面</h2>
+        <h1>帮助页面</h1>
       </div>
     )
   }
