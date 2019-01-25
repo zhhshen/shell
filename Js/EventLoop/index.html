@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div>
+    <p>2 3 6 4 5 8 11 1 7</p>
+    <p>2 3 6 8 11 4 5 1 7</p>
+  </div>
+  <script>
+      setTimeout(function(){
+        console.log('1')
+      });
+
+      new Promise(function(resolve){
+          console.log('2');
+          for(var i = 0; i < 10000; i++){
+              i == 99 && resolve();
+          }
+          console.log('3');
+      }).then(function(){
+          console.log('4')
+      }).then(() => {
+        console.log('5')
+      })
+
+      console.log('6');
+      setTimeout(function(){
+        console.log('7')
+      });
+
+      new Promise(function(resolve){
+          console.log('8');
+          // for(var i = 0; i < 10000; i++){
+          //     i == 99 && resolve();
+          // }
+      }).then(function(){
+          console.log('9')
+      }).then(() => {
+        console.log('10');
+      })
+
+      console.log('11');
+  </script>
+  <!-- <script>
+      setTimeout(function(){
+        console.log('7')
+      });
+
+      new Promise(function(resolve){
+          console.log('8');
+          // for(var i = 0; i < 10000; i++){
+          //     i == 99 && resolve();
+          // }
+      }).then(function(){
+          console.log('9')
+      }).then(() => {
+        console.log('10');
+      })
+
+      console.log('11');
+  </script> -->
+</body>
+</html>

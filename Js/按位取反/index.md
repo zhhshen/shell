@@ -6,4 +6,8 @@ const str = 'ssff<>dsdsdd<'
 console.log(str.indexOf('<'))
 console.log(~str.indexOf('<'))
 
-### ! 取反
+### ! 取反(或者叫逻辑取反)
+
+
+
+
