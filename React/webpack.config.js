@@ -1,5 +1,6 @@
 const path = require('path')
 const HtmlWebPackPlugin = require('html-webpack-plugin')
+const HtmlWebpackScriptAttributesPlugin = require('html-webpack-script-attributes-plugin')
 module.exports = {
   context: __dirname,
   entry: './src/index.js',
@@ -26,5 +27,8 @@ module.exports = {
       template: "./src/index.html",
       filename: "index.html"
     }),
+    new HtmlWebpackScriptAttributesPlugin({
+      crossorigin: 'anonymous'
+    })
   ]
 };

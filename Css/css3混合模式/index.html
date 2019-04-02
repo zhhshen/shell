@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>css3的混合模式</title>
+  <style> 
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    .main {
+      list-style: none;
+    }
+    img {
+      width: 100px;
+      vertical-align: top;
+    }
+    img:hover {
+      mix-blend-mode: lighten;
+    }
+    .yinhua {
+      margin: .25rem auto;
+      height: 200px;
+      background: url('./assets/images/yinhua1.jpg') top left, url('./assets/images/yinhua1.jpg') center center, url('./assets/images/yinhua1.jpg') bottom right;
+      width: 804px;
+      background-blend-mode: multiply;
+      background-color: white;
+      background-repeat: repeat-y;
+      transition: .25s .5s;
+      border-radius: .25rem;
+    }
+    .yinhua:hover {
+      background-position: top center, center center, bottom center;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <div class="yinhua"></div>
+  </div>
+</body>
+</html>
