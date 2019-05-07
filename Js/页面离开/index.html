@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>页面离开</title>
+  <link rel="stylesheet/less" type="text/css" href="./assets/index.less">
+  <script src="./assets/less.min.js" ></script>
+  <script src="https://unpkg.com/dayjs"></script>
+</head>
+<body>
+  <div class="notice-detail-wrap">
+      <div class="notice-detail-header">
+        <h1>文章文章</h1>
+        <div class="meta">
+          <div class="copy-btn">
+            <a><i class="copy-icon"></i>复制链接分享文章</a>
+            <!-- <CopyToClipboard
+              key={'copy-btn'}
+              text={shareUrl}
+              onCopy={(text, bool) => this.handleCopy(text, bool)}
+            >
+            </CopyToClipboard> -->
+          </div>
+        </div>
+      </div>
+      <div class="notice-detail-body">
+        <div class="introduction">
+          <em></em>
+          <!-- { detail.introduction } -->
+        </div>
+        <div class="media-thumb">
+          <div class="media">
+            <!-- <img src={detail.fileUrl} alt="加载错误"/> -->
+          </div>
+        </div>
+      </div>
+      <div class="notice-detail-footer">
+        <div class="like-btn S-bd-theme">
+          <!-- <CopyToClipboard
+            key={'like-btn'}
+            text={shareUrl}
+            onCopy={(text, bool) => this.handleCopy(text, bool)}
+          >
+            <a>喜欢这篇文章？复制链接分享文章</a>
+          </CopyToClipboard> -->
+        </div>
+      </div>
+    </Spin>
+  </div>
+  <script>
+    // 猴子补丁(Monkeypatch)
+    let _wr =  function (type) {
+      let orig = window.history[type]
+      return  function () {
+        let rv = orig.apply(this, arguments)
+        let e = new Event(type.toLowerCase())
+        e.arguments = arguments
+        window.dispatchEvent(e)
+        return rv
+      }
+    }
+    window.history.pushState = _wr('pushState')
+    window.history.replaceState = _wr('replaceState')
+    // 上报方法
+    const viewPush = () => {
+      console.log('浏览上报时间', dayjs().format('YYYY-MM-DD HH:mm:ss'))
+    }
+    const visibilityEvent = (e) => {
+      console.log(document.hidden, document.visibilityState)
+      if (document.hidden) {
+        viewPush()
+      }
+    }
+
+    window.onload = function () {
+      document.addEventListener('visibilitychange',  visibilityEvent)
+      window.addEventListener('pushstate',  viewPush)
+      window.addEventListener('replacestate',  viewPush)
+    }
+    window.onbeforeunload = function () {
+      document.removeEventListener('visibilitychange',  visibilityEvent)
+      window.removeEventListener('pushstate',  viewPush)
+      window.removeEventListener('replacestate',  viewPush)
+      viewPush()
+    }
+  </script>
+</body>
+</html>

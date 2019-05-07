@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>父级窗口</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    iframe {
+      width: 200px;
+      height: 200px;
+      border: 1px solid greenyellow;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <h1>父窗口</h1>
+    <iframe
+      id="myframe"
+      src="http://m.dev.lianjia.com:3000/sasspc/taskCenter" frameborder="0">
+    </iframe>
+    <iframe
+      id="myframe2"
+      src="http://m.dev.lianjia.com:3000/sasspc/bangdanCenter" frameborder="0">
+    </iframe>
+    <iframe
+      id="myframe3"
+      src="http://m.dev.lianjia.com:3000/sasspc/noticeCenter" frameborder="0">
+    </iframe>
+    <iframe
+      id="myframe4"
+      src="http://m.dev.lianjia.com:3000/sasspc/profile" frameborder="0">
+    </iframe>
+    <div id="text">
+
+    </div>
+    <div id="text2">
+
+    </div>
+    <div id="text3">
+
+    </div>
+    <div id="text4">
+
+    </div>
+  </div>
+  <script>
+      const origin = 'http://m.dev.lianjia.com:3000/sasspc/taskCenter'
+      const origin2 = 'http://m.dev.lianjia.com:3000/sasspc/bangdanCenter'
+      const origin3 = 'http://m.dev.lianjia.com:3000/sasspc/noticeCenter'
+      const origin4 = 'http://m.dev.lianjia.com:3000/sasspc/profile'
+    // window.onload = function () {
+    //   console.log('父')
+    // }
+    window.addEventListener('message', function (event) {
+      console.log(event)
+      if (event.data.type === 'TaskModule') {
+        let myframe = document.getElementById('myframe');//获取iframe
+        myframe.contentWindow.postMessage({
+          from: 'shouye',
+          msg: '清空cookie',
+          type: 'TaskModule'
+        }, origin)
+      document.getElementById('text').innerHTML = event.data.type
+      }
+      if (event.data.type === 'BangDanModule') {
+        let myframe = document.getElementById('myframe2');//获取iframe
+        myframe.contentWindow.postMessage({
+          from: 'shouye',
+          msg: '清空cookie',
+          type: 'BangDanModule'
+        }, origin2)
+      document.getElementById('text2').innerHTML = event.data.type
+      }
+      if (event.data.type === 'NoticeModule') {
+        let myframe = document.getElementById('myframe3');//获取iframe
+        myframe.contentWindow.postMessage({
+          from: 'shouye',
+          msg: '清空cookie',
+          type: 'NoticeModule'
+        }, origin3)
+      document.getElementById('text3').innerHTML = event.data.type
+      }
+      if (event.data.type === 'ProfileModule') {
+        let myframe = document.getElementById('myframe4');//获取iframe
+        myframe.contentWindow.postMessage({
+          from: 'shouye',
+          msg: '清空cookie',
+          type: 'ProfileModule'
+        }, origin4)
+      document.getElementById('text4').innerHTML = event.data.type
+      }
+      if (event.data.type === 'cookieModule') {
+        let myframe = document.getElementById('myframe');//获取iframe
+        let myframe2 = document.getElementById('myframe2');//获取iframe
+        let myframe3 = document.getElementById('myframe3');//获取iframe
+        let myframe4 = document.getElementById('myframe4');//获取iframe
+        myframe.contentWindow.postMessage({
+          from: 'shouye',
+          msg: '清空cookie',
+          type: 'cookieModule'
+        }, event.origin)
+        myframe2.contentWindow.postMessage({
+          from: 'shouye',
+          msg: '清空cookie',
+          type: 'cookieModule'
+        }, event.origin)
+        myframe3.contentWindow.postMessage({
+          from: 'shouye',
+          msg: '清空cookie',
+          type: 'cookieModule'
+        }, event.origin)
+        myframe4.contentWindow.postMessage({
+          from: 'shouye',
+          msg: '清空cookie',
+          type: 'cookieModule'
+        }, event.origin)
+      document.getElementById('text4').innerHTML = event.data.type
+      }
+    })
+  </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>父级窗口</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <h1>子窗口</h1>
+  </div>
+  <script>
+    document.cookie = `task=123`
+    console.log('子')
+    window.addEventListener('message', function (event) {
+      console.log(event)
+      document.cookie = ''
+      console.log(document.cookie)      
+    })
+  </script>
+</body>
+</html>

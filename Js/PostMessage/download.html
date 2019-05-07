@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <a href="" download="文件.mp4" id="btn">下载</a>
+    <script>
+    var blob = new Blob(['blob:https://baike.baidu.com/0ffe5867-35f6-46c4-8144-0831bbb7bb84'], {type: "text/mp4,charset=UTF-8"});
+    console.log(blob)
+    document.getElementById("btn").href = window.URL.createObjectURL(blob);
+    </script>
+</body>
+</html>
