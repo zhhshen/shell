@@ -82,7 +82,7 @@
 
                 self.sourceX = pos.x;
                 self.sourceY = pos.y;
-
+                this.elem.style.cursor = 'move'
                 document.addEventListener('mousemove', move, false);
                 document.addEventListener('mouseup', end, false);
             }
@@ -101,8 +101,9 @@
             }
 
             function end(event) {
-                document.removeEventListener('mousemove', move);
-                document.removeEventListener('mouseup', end);
+              console.log(event)
+              document.removeEventListener('mousemove', move);
+              document.removeEventListener('mouseup', end);
                 // do other things
             }
         }

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://cdn.bootcss.com/vue/2.5.16/vue.min.js"></script>
+  <title>border-radius百分比</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    ul {
+      width: 330px;
+      margin: 24px;
+    }
+    ul li {
+      display: inline-block;
+      list-style: none;
+    }
+    .outer {
+      position: relative;
+    }
+    .box1{
+      position: absolute;
+      top: 24px;
+      left: 24px;
+      border:2px dashed #4e70e6;
+      border-radius: 150% 50% 0 0;
+      width: 200px;
+      height: 100px;
+    }
+    .box2{
+      position: absolute;
+      top: 24px;
+      left: 24px;
+      border:2px dashed #4e70e6;
+      border-radius: 300% 100% 0 0;
+      width: 200px;
+      height: 100px;
+    }
+    table {
+      border-collapse: collapse;
+    }
+    table td {
+      width: 10px;
+      height: 10px;
+      border: 1px solid #ddd;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+<body>
+  <ul id="app">
+    <li>
+      <div class="outer">
+        <table>
+          <tbody>
+            <tr v-for="r in 30">
+              <td v-for="d in 40"></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="box1"></div>
+      </div>
+    </li>
+    <li>
+        <div class="outer">
+          <table>
+            <tbody>
+              <tr v-for="r in 30">
+                <td v-for="d in 40"></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="box2"></div>
+        </div>
+      </li>
+  </ul>
+  <script>
+    const vm1 = new Vue({
+      el: '#app',
+      data: {
+      },
+      mounted() {
+      },
+      methods: {
+      }
+    })
+  </script>
+</body>
+</html>

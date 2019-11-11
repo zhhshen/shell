@@ -1,0 +1,7 @@
+<block wx:if="{{$taroCompReady}}">
+    <view class="index"><text>Hello world!</text>
+        <view class="SJPAGECLASS" data-dig-v="{adid: 100003075040}">1</view>
+        <view class="SJPAGECLASS2" data-dig-v="{adid: 100003075041}">2</view>
+        <button catchtap="handleClickAvatar">点击头像</button>
+    </view>
+</block>

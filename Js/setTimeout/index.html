@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>setTimeout模拟实现setInterval</title>
+</head>
+<body>
+  <script>
+    let num1 = 0
+    let num2 = 1000
+    let obj = {
+      intervalIds: {},
+      sameInterval: function (fn, interval) {
+        let intervalId = setTimeout(() => {
+          this.timeOutFn(fn, interval, intervalId)
+        }, 0)
+        this.intervalIds[intervalId] = intervalId
+        return intervalId
+      },
+      timeOutFn: function (fn, interval, intervalId) {
+        if (!this.intervalIds[intervalId]) return
+        fn && fn()
+        setTimeout(() => {
+          this.timeOutFn(fn, interval, intervalId)
+        }, interval)
+      },
+      clearSameInterval: function (intervalId) {
+        this.intervalIds[intervalId] = null
+      },
+    }
+    let newTimer1 = obj.sameInterval(() => {
+      num1++
+      console.log('num1', num1)
+      if (num1 == 20) {
+        obj.clearSameInterval(newTimer1)
+      }
+    }, 1000)
+    console.log('newTimer1', newTimer1)
+    let newTimer2 = obj.sameInterval(() => {
+      num2++
+      console.log('num2', num2)
+      if (num2 == 1020) {
+        obj.clearSameInterval(newTimer2)
+      }
+    }, 1000)
+    console.log('newTimer2', newTimer2)
+    console.log(obj)
+  </script>
+</body>
+</html>

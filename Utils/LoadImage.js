@@ -10,6 +10,6 @@ export const loadImageAsync = function (url) {
       reject(new Error('Could not load image at ' + url));
     };
 
-    image.src = url;
+    image.src = url
   })
 }

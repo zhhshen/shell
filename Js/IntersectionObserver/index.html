@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+ 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/vue/2.5.16/vue.min.js"></script>
+    <style>
+        * {
+          margin: 0;
+          padding: 0;
+        }
+        ul, li {
+          list-style: none;
+        }
+
+        #full {
+            height: 1200px;
+            background-color: #f22;
+        }
+        
+        #test {
+            height: 100px;
+            background-color: #3f3;
+        }
+        .water-wrap {
+          padding: 20px 16px;
+        }
+        .water-wrap .item {
+          position: relative;
+          width: 100%;
+          margin-bottom: 16px;
+        }
+        .media-nothumb {
+          position: relative;
+          width: 100%;
+          padding-top: 50%;
+          height: 0; 
+          overflow: hidden;
+          background: #e5ede5;
+        }
+        .media-nothumb img {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          max-width: 100%;
+          transform: translate(-50%, -50%);
+        }
+        .empty-data {
+          text-align: center;
+          color: #f22;
+        }
+    </style>
+</head>
+ 
+<body>
+    <!-- <div id="full"></div>
+    <div id="test"></div> -->
+    <div id="app">
+      <ul class="water-wrap">
+        <li class="item" v-for="t in images">
+          <div class="media-nothumb">
+            <img class="lazy" :data-src="t">
+          </div>
+        </li>
+        <li class="item empty-data scrollerFooter" v-if="flag">
+          <span>数据加载中。。。</span>
+        </li>
+        <li class="item empty-data" v-else>
+            <span>没有更多数据啦！</span>
+          </li>
+      </ul>
+      <div></div>
+    </div>
+    <script>
+        function query(selector) {
+          return Array.from(document.querySelectorAll(selector))
+        }
+
+        var observer = new IntersectionObserver(
+          function(entries) {
+            entries.forEach(function(entry) {
+              if (entry.intersectionRatio > 0) {
+                var target = entry.target
+                var imgSrc = target.dataset.src
+                target.setAttribute('src', imgSrc)
+                observer.unobserve(target)
+              }
+            })
+          }
+        );
+        var initImagesList = [
+              './images/1.jpg',
+              './images/2.jpg',
+              './images/3.jpg',
+              './images/4.jpg',
+              './images/5.jpg',
+              './images/6.jpg',
+              './images/7.jpg',
+        ]
+        var vm = new Vue({
+          el: '#app',
+          data: {
+            images: [
+              './images/1.jpg',
+              './images/2.jpg',
+              './images/3.jpg',
+              './images/4.jpg',
+              './images/5.jpg',
+              './images/6.jpg',
+              './images/7.jpg',
+            ],
+            initialInstance: null,
+            flag: true
+          },
+          created: function () {
+           },
+          mounted: function () {
+            var that = this
+            this.$nextTick(function () {
+              // 懒加载
+              that.lazyLoad()
+              // 无限加载
+              that.initialLoad()
+            })
+          },
+          methods: {
+            lazyLoad: function () {
+              query('.lazy').forEach(function (item) {
+                observer.observe(item)
+              })
+            },
+            initialLoad: function () {
+              var that = this
+              this.initialInstance = new IntersectionObserver(
+                function (entries) {
+                  if (entries[0].intersectionRatio > 0) {
+                    that.loadItems()
+                  }
+                })
+              // 开始观察
+              var scrollerFooterElem = query('.scrollerFooter')
+              scrollerFooterElem.forEach(item => {
+                this.initialInstance.observe(item)
+              })
+            },
+            loadItems: function () {
+              // this.flag = Math.floor(Math.random())
+              setTimeout(() => {
+                console.log('异步记载数据', this.flag)
+                if (this.flag) {
+                  this.images = this.images.concat(initImagesList)
+                  this.$nextTick(() => {
+                    this.lazyLoad()
+                  })
+                }
+              }, 300)
+            }
+          },
+          beforeDestroy: function () {
+            if (this.initialInstance) {
+              this.initialInstance.disconnect()
+              this.initialInstance = null
+            }
+          }
+        })
+    </script>
+</body>
+ 
+</html>

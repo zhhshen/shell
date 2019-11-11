@@ -1,0 +1,2 @@
+"use strict";
+var SJLog = require("./lib/index.js");module.exports = { avatarClick: SJLog.avatarClick, imClick: SJLog.imClick, phoneClick: SJLog.phoneClick, automaticPageView: SJLog.automaticPageView, manualPageView: SJLog.manualPageView };

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>背景图片定位</title>
+  <style>
+    .outer {
+      width: 300px;
+      height: 200px;
+      background: #eee url(../images/lianjia.jpg) no-repeat;
+      background-size: 100px 100px;
+    }
+    ul li {
+      margin-bottom: 24px;
+      list-style: none;
+    }
+    .demo1 {
+      background-position: 100% 100%;
+    }
+    .demo2 {
+      background-position: right 20% top;
+    }
+    .demo3 {
+      background-position: right 100% bottom 100%;
+    }
+    .demo4 {
+      background-position: center left 0%;
+    }
+  </style>
+</head>
+<body>
+  <ul>
+    <li>
+      <h4>background-position: 100% 100%</h4>
+      <div class="outer demo1"></div>
+    </li>
+    <li>
+      <h4>background-position: right 10px top</h4>
+      <div class="outer demo2"></div>
+    </li>
+    <li>
+      <h4>background-position: right 100% bottom 100%</h4>
+      <div class="outer demo3"></div>
+    </li>
+    <li>
+        <h4>background-position: center 50% center 50%</h4>
+        <div class="outer demo4"></div>
+      </li>
+  </ul>
+</body>
+</html>

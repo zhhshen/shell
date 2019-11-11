@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Vertical-align的百分比</title>
+  <style>
+      .outer {
+        width: 300px;
+        height: 200px;
+        background: #eee;
+      }
+      ul li {
+        margin-bottom: 24px;
+        list-style: none;
+      }
+      img {
+        display: inline-block;
+        width: 200px;
+      }
+      .demo1 {
+        vertical-align: baseline;
+        line-height: 100px;
+      }
+      .txt1 {
+        display: inline-block;
+      }
+      .demo2 {
+        vertical-align: 30%;
+        line-height: 100px;
+      }
+      .txt2 {
+        display: inline-block;
+      }
+    </style>
+</head>
+<body>
+    <ul>
+        <li>
+          <h4>vertical-align: baseline</h4>
+          <div class="outer">
+            <img class="demo1" src="../images/lianjia.jpg" alt="">
+            <span class="txt1">xss</span>
+          </div>
+        </li>
+        <li>
+            <h4>vertical-align: 30%</h4>
+            <div class="outer">
+              <img class="demo2" src="../images/lianjia.jpg" alt="">
+              <span class="txt2">xss</span>
+            </div>
+          </li>
+      </ul>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Canvas像素数据处理</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="test"></canvas>
+  <script>
+    var canvas = document.getElementById('test')
+    var ctx = canvas.getContext('2d')
+    var url = './assets/images/4.jpg'
+    loadImage(url).then(img => {
+      console.log(img)
+      let imgRatio = img.naturalWidth / img.naturalHeight;
+      let canvasW = window.innerWidth
+      let canvasH = window.innerHeight
+      let w = img.naturalWidth
+      let h = img.naturalHeight
+      if (img.naturalWidth >= window.innerWidth) {
+        w = window.innerWidth
+        h = w / imgRatio 
+        if (h >= window.innerHeight) {
+          canvasH = h
+        }
+      } else {
+        if (h >= window.innerHeight) {
+          canvasH = h
+        }
+      }
+      canvas.width = canvasW
+      canvas.height = canvasH
+      ctx.fillStyle = '#eee'
+      ctx.fillRect(0, 0, canvasW, canvasH)
+      ctx.drawImage(img, 0, 0, w, h)
+      let imageData = ctx.getImageData(0, 0, w, h)
+      console.log(imageData)
+      let pixelData = imageData.data
+      console.log('px', pixelData)
+    })
+
+    function loadImage (url) {
+      return new Promise(function (resolve, reject) {
+        let img = new Image()
+        img.setAttribute('crossOrigin', 'anonymous')
+        img.onerror = () => reject(new Error(img.src + '图片加载失败'))
+        img.onload = () => resolve(img)
+        img.src = url;
+      })
+    }
+  </script>
+</body>
+</html>
